@@ -1,0 +1,5 @@
+server:
+  port: 60200
+spring:
+  application:
+    name: xc-service-api
