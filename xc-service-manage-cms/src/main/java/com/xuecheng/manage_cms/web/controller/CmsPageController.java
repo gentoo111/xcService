@@ -55,4 +55,10 @@ public class CmsPageController implements CmsPageControllerApi {
         return cmsPageService.getHtml(pageId);
     }
 
+    @Override
+    public ResponseResult postPage(@PathVariable("pageId")String pageId) {
+        return cmsPageService.postPage(pageId);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.xuecheng.manage_cms.service;
 
+import com.alibaba.fastjson.JSON;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
 import com.xuecheng.framework.domain.cms.CmsPage;
@@ -13,6 +14,7 @@ import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
+import com.xuecheng.manage_cms.config.RabbitMQConfig;
 import com.xuecheng.manage_cms.dao.CmsPageRepository;
 import com.xuecheng.manage_cms.dao.CmsTemplateRepository;
 import freemarker.cache.StringTemplateLoader;
@@ -23,6 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -55,6 +58,9 @@ public class CmsPageService {
 
     @Autowired
     private CmsTemplateRepository cmsTemplateRepository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest) {
         if (queryPageRequest == null) {
@@ -292,6 +298,27 @@ public class CmsPageService {
             return new GenerateHtmlResult(CommonCode.FAIL, null);
         }
         return new GenerateHtmlResult(CommonCode.SUCCESS, html);
+
+    }
+
+    public ResponseResult postPage(String pageId) {
+        //页面静态化
+        GenerateHtmlResult generateHtmlResult = generateHtml(pageId);
+        if (!generateHtmlResult.isSuccess()) {
+            ExceptionCast.cast(CmsCode.CMS_GENERATEHTML_HTMLISNULL);
+        }
+        //得到页面信息
+        CmsPage one = cmsPageRepository.findOne(pageId);
+
+        //构造发送的消息内容
+        Map<String, String> msgMap = new HashMap<>();
+        msgMap.put("pageId", pageId);
+        String msg = JSON.toJSONString(msgMap);
+
+        //给mq发消息
+        //得到站点id,站点id就是routingket=y
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EX_CMS_POSTPAGE,one.getSiteId(),msg);
+        return new ResponseResult(CommonCode.SUCCESS);
 
     }
 }
