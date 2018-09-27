@@ -52,6 +52,7 @@ public class ChooseCourseTask {
             //向完成选课队列发送消息
             rabbitTemplate.convertAndSend(RabbitMQConfig.EX_LEARNING_ADDCHOOSECOURSE,RabbitMQConfig.XC_LEARNING_FINISHADDCHOOSECOURSE_KEY,taskId);
 
+
         }else{
             //向完成选课队列发送消息
             rabbitTemplate.convertAndSend(RabbitMQConfig.EX_LEARNING_ADDCHOOSECOURSE,RabbitMQConfig.XC_LEARNING_FINISHADDCHOOSECOURSE_KEY,taskId);
