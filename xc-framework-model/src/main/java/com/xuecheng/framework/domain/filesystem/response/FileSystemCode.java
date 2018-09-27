@@ -12,7 +12,7 @@ import lombok.ToString;
 public enum FileSystemCode implements ResultCode {
     FS_UPLOADFILE_FILEISNULL(false,25001,"上传文件为空！"),
     FS_UPLOADFILE_BUSINESSISNULL(false,25002,"业务Id为空！"),
-    FS_UPLOADFILE_SERVERFAIL(false,25003,"上传文件服务器失败！"),
+    FS_UPLOADFILE_SERVERFAIL(false,25003,"上传文件服务器连接失败！"),
     FS_DELETEFILE_NOTEXISTS(false,25004,"删除的文件不存在！"),
     FS_DELETEFILE_DBFAIL(false,25005,"删除文件信息失败！"),
     FS_DELETEFILE_SERVERFAIL(false,25006,"删除文件失败！"),

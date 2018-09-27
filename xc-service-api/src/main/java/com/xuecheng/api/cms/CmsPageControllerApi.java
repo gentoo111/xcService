@@ -3,6 +3,7 @@ package com.xuecheng.api.cms;
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
+import com.xuecheng.framework.domain.cms.response.CmsPostPageResult;
 import com.xuecheng.framework.domain.cms.response.GenerateHtmlResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
@@ -28,6 +29,9 @@ public interface CmsPageControllerApi {
     @PostMapping(API_PRE+"/add")
     public CmsPageResult add(@RequestBody CmsPage cmsPage);
 
+    @ApiOperation(value = "保存页面,不存在要添加,已存在页面则更新")
+    @PostMapping(API_PRE+"/save")
+    public CmsPageResult save(@RequestBody CmsPage cmsPage);
 
     //根据id查询页面
     @ApiOperation(value = "根据id查询页面")
@@ -55,4 +59,7 @@ public interface CmsPageControllerApi {
     @PostMapping(API_PRE+"/postPage/{pageId}")
     public ResponseResult postPage(@PathVariable("pageId")String pageId);
 
+    @ApiOperation(value = "页面一键发布")
+    @PostMapping(API_PRE+"/postPageQuick")
+    public CmsPostPageResult postPageQuick(@RequestBody CmsPage cmsPage);
 }

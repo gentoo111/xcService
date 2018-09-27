@@ -4,32 +4,38 @@ import com.google.common.collect.ImmutableMap;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.framework.model.response.ResultCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.security.access.AccessDeniedException;
 
 /**
  * 异常捕获类
  */
 @ControllerAdvice
 public class ExceptionCatch {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionCatch.class);
 
     //不可预知的异常在map中配置异常所对应的错误代码及信息
     //ImmutableMap是不可变的map,线程安全
     private ImmutableMap<Class<? extends Throwable>,ResultCode> EXCEPTIONS;
     //用于构建ImmutableMap的数据
-    private static ImmutableMap.Builder<Class<? extends Throwable>,ResultCode> builder=ImmutableMap.builder();
+    protected static ImmutableMap.Builder<Class<? extends Throwable>,ResultCode> builder=ImmutableMap.builder();
 
     static {
         builder.put(HttpMessageNotReadableException.class, CommonCode.INVLIDATE);
+        //builder.put(AccessDeniedException.class, CommonCode.UNAUTHORISE);
     }
 
     //捕获不可预知的异常
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseResult catchException(Exception e) {
+        LOGGER.error("catch exception info{}",e.getMessage());
+        e.printStackTrace();
         if (EXCEPTIONS == null) {
             //异常类型和错误代码的map构建成功
             EXCEPTIONS=builder.build();
@@ -48,6 +54,8 @@ public class ExceptionCatch {
     @ExceptionHandler(CustomException.class)
     @ResponseBody
     public ResponseResult customException(CustomException e) {
+        LOGGER.error("catch customException info{}",e.getMessage());
+        e.printStackTrace();
         //处理异常
         ResultCode resultCode = e.getResultCode();
         //给用户返回异常信息码,以json处理

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <type id="Spring" />
+  </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
@@ -16,6 +19,19 @@
         <option value="$PROJECT_DIR$/test-rabbitmq-consumer/pom.xml" />
         <option value="$PROJECT_DIR$/test-rabbitmq-producer/pom.xml" />
         <option value="$PROJECT_DIR$/xc-service-manage-cms-client/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-manage-course/pom.xml" />
+        <option value="$PROJECT_DIR$/test-fastDSF/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-base-filesystem/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-govern-center/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-search/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-manage-media/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-manage-media-processor/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-learning/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-ucenter-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-ucenter/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-govern-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-base-id/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-manage-order/pom.xml" />
       </list>
     </option>
   </component>

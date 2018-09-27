@@ -18,6 +18,7 @@ public class CookieUtil {
      * @param name     cookie名字
      * @param value    cookie值
      * @param maxAge   cookie生命周期 以秒为单位
+     * @param httpOnly 只有本网站可以访问,防止外网攻击
      */
     public static void addCookie(HttpServletResponse response,String domain,String path, String name,
                                  String value, int maxAge,boolean httpOnly) {

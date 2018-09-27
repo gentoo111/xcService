@@ -7,6 +7,7 @@ package com.xuecheng.framework.model.response;
  * 23000-- 用户中心错误代码
  * 24000-- cms错误代码
  * 25000-- 文件系统
+ * 26000-- 学习系统
  */
 public interface ResultCode {
     //操作是否成功,true为成功，false操作失败

@@ -11,7 +11,7 @@ public class QueryResponseResult<T> extends ResponseResult {
 
     public QueryResponseResult(ResultCode resultCode,QueryResult<T> queryResult){
         super(resultCode);
-       this.queryResult = queryResult;
+        this.queryResult = queryResult;
     }
 
 }
