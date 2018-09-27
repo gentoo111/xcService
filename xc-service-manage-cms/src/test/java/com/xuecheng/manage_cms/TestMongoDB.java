@@ -27,7 +27,7 @@ public class TestMongoDB {
     @Autowired
     private CmsPageRepository cmsPageRepository;
 
-    @Test
+    /*@Test
     public void testFindList() {
         CmsPage cmsPage=new CmsPage();
         cmsPage.setDataUrl("11");
@@ -60,7 +60,7 @@ public class TestMongoDB {
         System.out.println("totalElements:"+totalElements);
         System.out.println(content);
 
-    }
+    }*/
 
     //测试GridFS存取文件
     @Autowired
